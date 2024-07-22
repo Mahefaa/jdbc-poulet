@@ -31,7 +31,9 @@ public class JdbcSelector {
     try {
       connection =
           DriverManager.getConnection(
-              "jdbc:postgresql://localhost:5432/bank", "postgres", "postgres");
+            "jdbc:postgresql://localhost:5432/bank",
+            "postgres",
+            "postgres");
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -55,11 +57,6 @@ public class JdbcSelector {
       ------+-------
        id_2 |     0
        id_1 |   100
-
-
-       [rs.cursorValue(): null, 0:{id_2, 0}, 1:{id_1, 100}]
-       rs.next();
-       [rs.cursorValue(): 0, 0:{id_2, 0}, 1:{id_1, 100}]
        */
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -74,6 +71,10 @@ public class JdbcSelector {
       while (rs.next()) {
         String id = rs.getString("id");
         double solde = rs.getDouble("solde");
+        /*
+        String id = rs.getString(0);
+        double solde = rs.getDouble(1);
+         */
         Account account = new Account();
         account.setId(id);
         account.setSolde((int) solde);
@@ -107,7 +108,7 @@ public class JdbcSelector {
 						update "account" set solde = 100.0 where id = 'id_1';
 						""");
       System.out.println("update mandeha ewa");
-      assert (result == 2) : ("tsy nandeha ilay update leka");
+      assert (result == 1) : ("tsy nandeha ilay update leka");
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
